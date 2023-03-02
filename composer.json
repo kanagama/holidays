@@ -18,7 +18,7 @@
             "type": "package",
             "package": {
                 "name": "kanagama/syukujitsu",
-                "version": "1.0.0",
+                "version": "1.0",
                 "dist": {
                     "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
                     "type": "file"
@@ -27,7 +27,6 @@
         }
     ],
     "require": {
-        "kanagama/syukujitsu": "dev-master",
         "nesbot/carbon": "^2.6",
         "php": "^7.4 || ^8.0"
     },
