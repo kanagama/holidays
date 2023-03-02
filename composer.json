@@ -35,7 +35,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "download-holiday-csv",
-        "post-update-cmd": "download-holiday-csv"
+        "post-install-cmd": "vendor/bin/download-holiday-csv",
+        "post-update-cmd": "vendor/bin/download-holiday-csv"
     }
 }
