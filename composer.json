@@ -14,7 +14,6 @@
     ],
     "license": "MIT",
     "require": {
-        "kanagama/holidaycsv": "1.0.0",
         "nesbot/carbon": "^2.6",
         "php": "^7.4 || ^8.0"
     },
@@ -26,5 +25,10 @@
             "Kanagama\\Holidays\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "csv-file": {
+            "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv"
+        }
+    }
 }

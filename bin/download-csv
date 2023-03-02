@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+$extra = json_decode(file_get_contents(__DIR__ . '/../composer.json'), true)['extra'];
+
+if (isset($extra['csv-file']['url'])) {
+    $url = $extra['csv-file']['url'];
+    $csvData = file_get_contents($url);
+    file_put_contents(__DIR__ . '/../csv/syukujitsu.csv', $csvData);
+}
