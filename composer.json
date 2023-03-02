@@ -35,11 +35,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "php vendor/bin/download-csv"
-        ],
-        "post-update-cmd": [
-            "php vendor/bin/download-csv"
-        ]
+        "post-install-cmd": "php vendor/bin/download-csv",
+        "post-update-cmd": "php vendor/bin/download-csv"
     }
 }
