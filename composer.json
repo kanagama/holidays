@@ -1,0 +1,42 @@
+{
+    "name": "kanagama/holidays",
+    "description": "日本の祝日を管理する ",
+    "keywords": [
+        "calendar",
+        "holiday"
+    ],
+    "authors": [
+        {
+            "name": "kazuma nagama",
+            "email": "k.nagama0632@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "kanagama/syukujitsu",
+                "version": "1.0.0",
+                "dist": {
+                    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+                    "type": "file"
+                }
+            }
+        }
+    ],
+    "require": {
+        "kanagama/csv": "v1.0.0",
+        "nesbot/carbon": "^2.6",
+        "php": "^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kanagama\\Holidays\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
