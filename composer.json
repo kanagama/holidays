@@ -27,7 +27,7 @@
     },
     "minimum-stability": "stable",
     "bin": [
-        "bin/download-csv"
+        "bin/download-holiday-csv"
     ],
     "extra": {
         "csv-file": {
@@ -35,7 +35,7 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "php vendor/bin/download-csv",
-        "post-update-cmd": "php vendor/bin/download-csv"
+        "post-install-cmd": "download-holiday-csv",
+        "post-update-cmd": "download-holiday-csv"
     }
 }
