@@ -36,10 +36,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "php bin/download-csv"
+            "php vendor/bin/download-csv"
         ],
         "post-update-cmd": [
-            "php bin/download-csv"
+            "php vendor/bin/download-csv"
         ]
     }
 }
