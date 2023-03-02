@@ -12,19 +12,6 @@
         }
     ],
     "license": "MIT",
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "kanagama/syukujitsu",
-                "version": "1.0.0",
-                "dist": {
-                    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
-                    "type": "file"
-                }
-            }
-        }
-    ],
     "require": {
         "kanagama/syukujitsu": "*",
         "nesbot/carbon": "^2.6",
@@ -38,5 +25,18 @@
             "Kanagama\\Holidays\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "kanagama/syukujitsu",
+                "version": "1.0.0",
+                "dist": {
+                    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+                    "type": "file"
+                }
+            }
+        }
+    ]
 }
