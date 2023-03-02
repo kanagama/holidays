@@ -81,7 +81,7 @@ final class Holidays
      *
      * @return bool
      */
-    public function checkHoliday(int $year, int $month, int $day): bool
+    private function _checkHoliday(int $year, int $month, int $day): bool
     {
         return !empty($this->holidays[$year][$month][$day]);
     }
@@ -91,7 +91,7 @@ final class Holidays
      *
      * @return string|null
      */
-    public function getHolidayName(int $year, int $month, int $day): ?string
+    private function _getHolidayName(int $year, int $month, int $day): ?string
     {
         if ($this->checkHoliday($year, $month, $day)) {
             return $this->holidays[$year][$month][$day];
@@ -105,7 +105,7 @@ final class Holidays
      *
      * @return bool
      */
-    public function checkDayBeforeHoliday(int $year, int $month, int $day): bool
+    private function _checkDayBeforeHoliday(int $year, int $month, int $day): bool
     {
         $carbon = (new Carbon($year . '/' . $month . '/' . $day))->addDay();
 
@@ -120,7 +120,7 @@ final class Holidays
      * @param  int  $day
      * @return bool
      */
-    public function checkDayAfterHoliday(int $year, int $month, int $day): bool
+    private function _checkDayAfterHoliday(int $year, int $month, int $day): bool
     {
         $carbon = (new Carbon($year . '/' . $month . '/' . $day))->subDay();
 

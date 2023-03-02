@@ -5,7 +5,7 @@ namespace Tests\Unit\Kanagama\Holidays;
 use Kanagama\Calendarar\Holidays;
 use PHPUnit\Framework\TestCase;
 
-final class CalendarTest extends TestCase
+final class HolidaysTest extends TestCase
 {
     /**
      * @var Calendarar
