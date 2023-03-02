@@ -33,5 +33,13 @@
         "csv-file": {
             "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv"
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php bin/download-csv"
+        ],
+        "post-update-cmd": [
+            "php bin/download-csv"
+        ]
     }
 }
