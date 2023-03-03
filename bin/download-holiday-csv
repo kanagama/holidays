@@ -7,7 +7,8 @@ if (isset($extra['csv-file']['url'])) {
     $url = $extra['csv-file']['url'];
     $csvData = file_get_contents($url);
 
-    if (mkdir(__DIR__ . '/../csv/', 0777, true)) {
-        file_put_contents(__DIR__ . '/../csv/syukujitsu.csv', $csvData);
+    $dir = __DIR__ . '/../csv/';
+    if (!file_exists($dir) && mkdir($dir, 0777, true)) {
+        file_put_contents($dir . 'syukujitsu.csv', $csvData);
     }
 }

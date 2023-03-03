@@ -12,8 +12,22 @@
             "email": "k.nagama0632@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "kanagama/csv",
+                "version": "1.0.0",
+                "dist": {
+                    "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv",
+                    "type": "file"
+                }
+            }
+        }
+    ],
     "license": "MIT",
     "require": {
+        "kanagama/csv": "@dev",
         "nesbot/carbon": "^2.6",
         "php": "^7.4 || ^8.0"
     },
@@ -22,24 +36,5 @@
             "Kanagama\\Holidays\\": "src/"
         }
     },
-    "minimum-stability": "dev",
-    "bin": [
-        "bin/download-holiday-csv"
-    ],
-    "scripts": {
-        "post-install-cmd": [
-            "echo post-install-msg"
-        ],
-        "post-update-cmd": [
-            "echo post-update-msg"
-        ],
-        "post-package-install": [
-            "echo post-package-msg"
-        ]
-    },
-    "extra": {
-        "csv-file": {
-            "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv"
-        }
-    }
+    "minimum-stability": "dev"
 }
