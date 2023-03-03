@@ -102,8 +102,7 @@ $holiday = $holidays->checkDayAfterPublicHoliday(2023, 3, 22);
 
 ```php
 $holidays = new Holidays();
-// true （前日が春分の日）
-$holiday = $holidays->addPublicHoliday(2023, 3, 20, '設立記念日');
+$holidays->addPublicHoliday(2023, 3, 20, '設立記念日');
 ```
 
 ※他のファンクションでも同様に、指定した日が祝日判定されます。
