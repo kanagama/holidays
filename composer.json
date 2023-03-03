@@ -17,9 +17,6 @@
         "nesbot/carbon": "^2.6",
         "php": "^7.4 || ^8.0"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^10"
-    },
     "autoload": {
         "psr-4": {
             "Kanagama\\Holidays\\": "src/"
@@ -29,11 +26,6 @@
     "bin": [
         "bin/download-holiday-csv"
     ],
-    "extra": {
-        "csv-file": {
-            "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv"
-        }
-    },
     "scripts": {
         "post-install-cmd": [
             "echo post-install-msg"
@@ -44,5 +36,10 @@
         "post-package-install": [
             "echo post-package-msg"
         ]
+    },
+    "extra": {
+        "csv-file": {
+            "url": "https://www8.cao.go.jp/chosei/shukujitsu/syukujitsu.csv"
+        }
     }
 }
