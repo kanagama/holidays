@@ -1,24 +1,36 @@
 <?php
 
-namespace Kanagama\Calendarar;
+namespace Kanagama\Holidays;
 
+use BadMethodCallException;
 use Carbon\Carbon;
 
 /**
- * @method bool checkHoliday(int $year, int $month, int $day)
- * @method string|null getHolidayName(int $year, int $month, int $day)
- * @method bool checkBeforeHoliday(int $year, int $month, int $day)
- * @method bool checkAfterHoliday(int $year, int $month, int $day)
+ * 日本の祝日を管理する
  *
+ * @method bool checkPublicHoliday(int $year, int $month, int $day)
+ * @method string|null getPublicHolidayName(int $year, int $month, int $day)
+ * @method bool checkBeforePublicHoliday(int $year, int $month, int $day)
+ * @method bool checkAfterHoliday(int $year, int $month, int $day)
+ * @method bool checkHoliday(int $year, int $month, int $day)
+ * @method bool addPublicHoliday(int $year, int $month, int $day, string $holidayName)
+ *
+ * @method static bool checkPublicHoliday(int $year, int $month, int $day)
+ * @method static string|null getPublicHolidayName(int $year, int $month, int $day)
+ * @method static bool checkBeforePublicHoliday(int $year, int $month, int $day)
+ * @method static bool checkAfterPublicHoliday(int $year, int $month, int $day)
  * @method static bool checkHoliday(int $year, int $month, int $day)
- * @method static string|null getHolidayName(int $year, int $month, int $day)
- * @method static bool checkBeforeHoliday(int $year, int $month, int $day)
- * @method static bool checkAfterHoliday(int $year, int $month, int $day)
+ * @method static bool addPublicHoliday(int $year, int $month, int $day, string $holidayName)
  *
  * @author k-nagama <k.nagama0632@gmail.com>
  */
 final class Holidays
 {
+    /**
+     * @var self
+     */
+    private static $instance;
+
     /**
      * @var array
      */
@@ -29,7 +41,7 @@ final class Holidays
      */
     public function __construct()
     {
-        $handle = fopen("/var/www/html/vendor/kanagama/csv/syukujitsu.csv", 'r');
+        $handle = fopen(__DIR__ . '/../../csv/syukujitsu.csv', 'r');
 
         // 1行目はタイトルなので除去
         $titles = fgetcsv($handle);
@@ -41,6 +53,17 @@ final class Holidays
         }
 
         fclose($handle);
+    }
+
+    /**
+     * @return Holidays
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new Holidays();
+        }
+        return self::$instance;
     }
 
     /**
@@ -56,6 +79,8 @@ final class Holidays
         if (method_exists($this, $callMethod)) {
             return call_user_func_array(array($this, $callMethod), $args);
         }
+
+        throw new BadMethodCallException;
     }
 
     /**
@@ -67,13 +92,14 @@ final class Holidays
      */
     public static function __callStatic($name, $args)
     {
-        $instance = new self();
-        call_user_func_array(array($instance, 'reset'), []);
+        $instance = self::getInstance();
 
         $callMethod = '_' . $name;
         if (method_exists($instance, $callMethod)) {
             return call_user_func_array(array($instance, $callMethod), $args);
         }
+
+        throw new BadMethodCallException;
     }
 
     /**
@@ -81,19 +107,21 @@ final class Holidays
      *
      * @return bool
      */
-    private function _checkHoliday(int $year, int $month, int $day): bool
+    private function _checkPublicHoliday(int $year, int $month, int $day): bool
     {
         return !empty($this->holidays[$year][$month][$day]);
     }
 
     /**
      * 祝日名を取得する
-     *
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
      * @return string|null
      */
-    private function _getHolidayName(int $year, int $month, int $day): ?string
+    private function _getPublicHolidayName(int $year, int $month, int $day): ?string
     {
-        if ($this->checkHoliday($year, $month, $day)) {
+        if ($this->_checkPublicHoliday($year, $month, $day)) {
             return $this->holidays[$year][$month][$day];
         }
 
@@ -101,15 +129,40 @@ final class Holidays
     }
 
     /**
+     * 休日チェック
+     * 土日もしくは祝日である
+     *
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
+     * @return boolean
+     */
+    public function _checkHoliday(int $year, int $month, int $day): bool
+    {
+        return (
+            in_array(
+                (int) date('w', mktime(0, 0, 0, $month, $day, $year)),
+                [
+                    Carbon::SUNDAY,
+                    Carbon::SATURDAY,
+                ],
+                true
+            )
+            ||
+            $this->_checkPublicHoliday($year, $month, $day)
+        );
+    }
+
+    /**
      * 祝前日かチェックする
      *
      * @return bool
      */
-    private function _checkDayBeforeHoliday(int $year, int $month, int $day): bool
+    private function _checkDayBeforePublicHoliday(int $year, int $month, int $day): bool
     {
         $carbon = (new Carbon($year . '/' . $month . '/' . $day))->addDay();
 
-        return $this->checkHoliday($carbon->year, $carbon->month, $carbon->day);
+        return $this->_checkPublicHoliday($carbon->year, $carbon->month, $carbon->day);
     }
 
     /**
@@ -120,10 +173,24 @@ final class Holidays
      * @param  int  $day
      * @return bool
      */
-    private function _checkDayAfterHoliday(int $year, int $month, int $day): bool
+    private function _checkDayAfterPublicHoliday(int $year, int $month, int $day): bool
     {
         $carbon = (new Carbon($year . '/' . $month . '/' . $day))->subDay();
 
-        return $this->checkHoliday($carbon->year, $carbon->month, $carbon->day);
+        return $this->_checkPublicHoliday($carbon->year, $carbon->month, $carbon->day);
+    }
+
+    /**
+     * 祝日を追加
+     *
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
+     * @param  string  $holidayName
+     * @return void
+     */
+    private function _addPublicHoliday(int $year, int $month, int $day, string $holidayName)
+    {
+        $this->holidays[$year][$month][$day] = $holidayName;
     }
 }
