@@ -35,21 +35,14 @@
         }
     },
     "scripts": {
-        "download-holiday-csv": "php vendor/bin/download-holiday-csv",
         "post-install-cmd": [
             "echo post-install-msg",
-            "@download-holiday-csv",
-            "./vendor/bin/download-holiday-csv"
         ],
         "post-update-cmd": [
             "echo post-update-msg",
-            "@download-holiday-csv",
-            "./vendor/bin/download-holiday-csv"
         ],
         "post-package-install": [
             "echo post-package-msg",
-            "@download-holiday-csv",
-            "./vendor/bin/download-holiday-csv"
         ]
     }
 }
