@@ -36,13 +36,13 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "echo post-install-msg",
+            "echo post-install-msg"
         ],
         "post-update-cmd": [
-            "echo post-update-msg",
+            "echo post-update-msg"
         ],
         "post-package-install": [
-            "echo post-package-msg",
+            "echo post-package-msg"
         ]
     }
 }
