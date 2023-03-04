@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  php74:
+    container_name: php74
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    volumes:
+      - .:/var/www/html
+    restart: unless-stopped
+    command: tail -f /dev/null
