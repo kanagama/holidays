@@ -41,16 +41,23 @@ final class Holidays
      */
     public function __construct(string $path = null)
     {
+        $csvPath = $path;
+
         if (empty($path)) {
-            $path = __DIR__ . '/../../csv/syukujitsu.csv';
+            $csvPath = $this->findVendorDir() . '/kanagama/csv/syukujitsu.csv';
         }
-        $handle = fopen($path, 'r');
+
+        $handle = fopen($csvPath, 'r');
 
         // 1行目はタイトルなので除去
         $titles = fgetcsv($handle);
         while (($line = fgetcsv($handle)) !== false) {
             list($year, $month, $day) = explode("/", $line[0]);
             $holidayName = mb_convert_encoding($line[1], 'UTF-8', 'Shift_JIS');
+            // 振替休日はロジックで判断させるため登録しない
+            if (!$path && $holidayName === '休日') {
+                continue;
+            }
 
             $this->holidays[(int) $year][(int) $month][(int) $day] = [
                 'name'           => $holidayName,
@@ -64,7 +71,7 @@ final class Holidays
     /**
      * @return Holidays
      */
-    public static function getInstance()
+    private static function getInstance()
     {
         if (!isset(self::$instance)) {
             self::$instance = new Holidays();
@@ -331,5 +338,24 @@ final class Holidays
                 return true;
             }
         }
+    }
+
+    /**
+     * vendor ディレクトリを検索する
+     * 本当は要らないメソッドだが自動テストのために仕方なく作成…
+     *
+     * @return string
+     */
+    private function findVendorDir(): string
+    {
+        $dir = __DIR__;
+        while ($dir !== '/') {
+            $vendor_dir = $dir . '/vendor';
+            if (is_dir($vendor_dir)) {
+                return $vendor_dir;
+            }
+            $dir = dirname($dir);
+        }
+        return null;
     }
 }
