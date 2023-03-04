@@ -269,7 +269,7 @@ final class Holidays
      * @param  int  $year
      * @param  int  $month
      * @param  int  $day
-     * @return bool
+     * @return int
      */
     private function getWeekNo(int $year, int $month, int $day): int
     {
@@ -344,9 +344,9 @@ final class Holidays
      * vendor ディレクトリを検索する
      * 本当は要らないメソッドだが自動テストのために仕方なく作成…
      *
-     * @return string
+     * @return string|null
      */
-    private function findVendorDir(): string
+    private function findVendorDir(): ?string
     {
         $dir = __DIR__;
         while ($dir !== '/') {
