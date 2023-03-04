@@ -27,9 +27,12 @@
     ],
     "license": "MIT",
     "require": {
-        "kanagama/csv": "@dev",
+        "kanagama/csv": "1.0.0",
         "nesbot/carbon": "^2.6",
         "php": "^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
     },
     "autoload": {
         "psr-4": {
