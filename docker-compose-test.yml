@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  php74:
+  php74_holidays:
     container_name: php74_holidays
     build:
       context: .
@@ -10,7 +10,7 @@ services:
     # restart: unless-stopped
     command: vendor/bin/phpunit tests/HolidaysTest.php
 
-  php80:
+  php80_holidays:
     container_name: php80_holidays
     build:
       context: .
@@ -20,9 +20,9 @@ services:
     # restart: unless-stopped
     command: vendor/bin/phpunit tests/HolidaysTest.php
     depends_on:
-      - php74
+      - php74_holidays
 
-  php81:
+  php81_holidays:
     container_name: php81_holidays
     build:
       context: .
@@ -32,9 +32,9 @@ services:
     # restart: unless-stopped
     command: vendor/bin/phpunit tests/HolidaysTest.php
     depends_on:
-      - php80
+      - php80_holidays
 
-  php82:
+  php82_holidays:
     container_name: php82_holidays
     build:
       context: .
@@ -44,4 +44,4 @@ services:
     # restart: unless-stopped
     command: vendor/bin/phpunit tests/HolidaysTest.php
     depends_on:
-      - php81
+      - php81_holidays

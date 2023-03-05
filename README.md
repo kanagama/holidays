@@ -123,3 +123,20 @@ $result = Holidays::checkDayAfterPublicHoliday(2023, 3, 21);
 $result = Holidays::addPublicHoliday(2023, 3, 20, '設立記念日');
 ```
 
+## 開発
+
+make test-build
+
+テスト用コンテナをビルド
+
+make test
+
+各PHPのバージョンのコンテナを起動してテストを実行
+
+make development-build
+
+開発用コンテナをビルド
+
+make development
+
+開発用コンテナを起動
