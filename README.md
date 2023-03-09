@@ -125,18 +125,32 @@ $result = Holidays::addPublicHoliday(2023, 3, 20, '設立記念日');
 
 ## 開発
 
+```bash
 make test-build
+```
 
 テスト用コンテナをビルド
 
+<br>
+
+```bash
 make test
+```
 
 各PHPのバージョンのコンテナを起動してテストを実行
 
+<br>
+
+```bash
 make development-build
+```
 
 開発用コンテナをビルド
 
+<br>
+
+```bash
 make development
+```
 
 開発用コンテナを起動
