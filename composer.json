@@ -33,12 +33,12 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
-        "phpstan/phpstan": "1.10.x-dev"
+        "phpstan/phpstan": "^1.10"
     },
     "autoload": {
         "psr-4": {
             "Kanagama\\Holidays\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
