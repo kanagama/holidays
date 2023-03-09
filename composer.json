@@ -35,6 +35,12 @@
         "phpunit/phpunit": "^9.0",
         "phpstan/phpstan": "^1.10"
     },
+    "exclude": [
+        "tests/",
+        ".docker/",
+        ".github/",
+        "*.md"
+    ],
     "autoload": {
         "psr-4": {
             "Kanagama\\Holidays\\": "src/"
