@@ -4,7 +4,7 @@ test-build:
 test:
 	docker-compose -f docker-compose-test.yml up
 
-deelopment-build:
+development-build:
 	docker-compose -f docker-compose.yml build --no-cache
 
 development:

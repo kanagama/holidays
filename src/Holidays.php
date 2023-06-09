@@ -50,7 +50,7 @@ final class Holidays
         $handle = fopen($csvPath, 'r');
 
         // 1行目はタイトルなので除去
-        $titles = fgetcsv($handle);
+        fgetcsv($handle);
         while (($line = fgetcsv($handle)) !== false) {
             list($year, $month, $day) = explode("/", $line[0]);
             $holidayName = mb_convert_encoding($line[1], 'UTF-8', 'Shift_JIS');
@@ -69,6 +69,7 @@ final class Holidays
     }
 
     /**
+     * @static
      * @return Holidays
      */
     private static function getInstance()
@@ -85,6 +86,7 @@ final class Holidays
      * @param  string  $name
      * @param  array  $args
      * @return mixed
+     * @throws BadMethodCallException
      */
     public function __call($name, $args)
     {
@@ -99,9 +101,11 @@ final class Holidays
     /**
      * 静的呼び出し
      *
+     * @static
      * @param  string  $name
      * @param  array  $args
      * @return mixed
+     * @throws BadMethodCallException
      */
     public static function __callStatic($name, $args)
     {
@@ -162,10 +166,13 @@ final class Holidays
      * @param  int  $year
      * @param  int  $month
      * @param  int  $day
-     * @return boolean
+     * @return bool
      */
-    public function _checkHoliday(int $year, int $month, int $day): bool
-    {
+    public function _checkHoliday(
+        int $year,
+        int $month,
+        int $day
+    ): bool {
         return (
             // 週末かどうか
             $this->checkWeekEnd($year, $month, $day)

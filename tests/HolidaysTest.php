@@ -6,6 +6,9 @@ use Kanagama\Holidays\Holidays;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
+/**
+ * @author k-nagama <k.nagama0632@gmail.com>
+ */
 final class HolidaysTest extends TestCase
 {
     /**
@@ -151,8 +154,12 @@ final class HolidaysTest extends TestCase
 
     /**
      * @test
-     *
      * @dataProvider checkHolidaysProvider
+     *
+     * @param  bool  $result
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
      */
     public function checkHolidayで正しく休日判定がされること(
         bool $result,
@@ -171,33 +178,33 @@ final class HolidaysTest extends TestCase
         return [
             '土曜日' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 18,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 18,
             ],
             '日曜日' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 19,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 19,
             ],
             '平日月曜日' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 20,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 20,
             ],
             '祝日' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 21,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 21,
             ],
             '平日水曜日' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 22,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 22,
             ],
         ];
     }
@@ -227,11 +234,19 @@ final class HolidaysTest extends TestCase
      * 週末判定が正常に行われる
      *
      * @test
-     *
      * @dataProvider checkWeekEndProvider
+     *
+     * @param  bool  $result
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
      */
-    public function checkWeekEndの判定が正常に行われること(bool $result, int $year, int $month, int $day)
-    {
+    public function checkWeekEndの判定が正常に行われること(
+        bool $result,
+        int $year,
+        int $month,
+        int $day
+    ) {
         $holidays = new Holidays();
 
         $reflection = new ReflectionClass($holidays);
@@ -252,21 +267,21 @@ final class HolidaysTest extends TestCase
         return [
             '土曜日はtrue' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 11,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 11,
             ],
             '日曜日はtrue' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 12,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 12,
             ],
             '月曜日はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 13,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 13,
             ],
         ];
     }
@@ -292,11 +307,19 @@ final class HolidaysTest extends TestCase
 
     /**
      * @test
-     *
      * @dataProvider checkSundayProvider
+     *
+     * @param  bool  $result
+     * @param  int  $year
+     * @param  int  $month
+     * @param  int  $day
      */
-    public function checkSundayの判定が正常に行われること(bool $result, int $year, int $month, int $day)
-    {
+    public function checkSundayの判定が正常に行われること(
+        bool $result,
+        int $year,
+        int $month,
+        int $day
+    ) {
         $holidays = new Holidays();
 
         $reflection = new ReflectionClass($holidays);
@@ -317,21 +340,21 @@ final class HolidaysTest extends TestCase
         return [
             '土曜日はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 11,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 11,
             ],
             '日曜日はtrue' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 12,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 12,
             ],
             '月曜日はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 13,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 13,
             ],
         ];
     }
@@ -375,17 +398,20 @@ final class HolidaysTest extends TestCase
     /**
      * 祝日に挟まれた平日の場合の振替休日判定
      *
+     * @test
+     * @dataProvider checkFurikaeHolidaySandwichProvider
+     *
      * @param  bool  $result
      * @param  int  $year
      * @param  int  $month
      * @param  int  $day
-     *
-     * @test
-     *
-     * @dataProvider checkFurikaeHolidaySandwichProvider
      */
-    public function checkFurikaeHolidaySandwichの判定が正常に行われる(bool $result, int $year, int $month, int $day)
-    {
+    public function checkFurikaeHolidaySandwichの判定が正常に行われる(
+        bool $result,
+        int $year,
+        int $month,
+        int $day
+    ) {
         $holidays = new Holidays(__DIR__ . '/files/test.csv');
 
         $reflection = new ReflectionClass($holidays);
@@ -406,27 +432,27 @@ final class HolidaysTest extends TestCase
         return [
             '祝日に挟まれている平日の場合はtrue' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 2,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 2,
             ],
             '祝日に挟まれている祝日の場合はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 13,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 13,
             ],
             '祝日に挟まれている土曜の場合はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 25,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 25,
             ],
             '祝日に挟まれている日曜の場合はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 19,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 19,
             ],
         ];
     }
@@ -434,14 +460,13 @@ final class HolidaysTest extends TestCase
     /**
      * 日曜日が祝日の場合の振替休日判定
      *
+     * @test
+     * @dataProvider checkFurikaeHolidaySundayProvider
+     *
      * @param  bool  $result
      * @param  int  $year
      * @param  int  $month
      * @param  int  $day
-     *
-     * @test
-     *
-     * @dataProvider checkFurikaeHolidaySundayProvider
      */
     public function checkFurikaeHolidaySundayの判定が正常に行われる(bool $result, int $year, int $month, int $day)
     {
@@ -465,21 +490,21 @@ final class HolidaysTest extends TestCase
         return [
             '前日が日曜祝日の平日はtrue' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 6,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 6,
             ],
             '日曜祝日と祝日が続く場合の最初の平日はtrue' => [
                 'result' => true,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 15,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 15,
             ],
             '前日が月曜祝日の平日はfalse' => [
                 'result' => false,
-                'year' => 2023,
-                'month' => 3,
-                'day' => 21,
+                'year'   => 2023,
+                'month'  => 3,
+                'day'    => 21,
             ],
         ];
     }
